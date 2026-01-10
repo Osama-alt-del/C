@@ -4,9 +4,19 @@ IT WORKS!!! YESS!! HAHAHAHA
 
 There is still the problem where if the length is even, the last point is not drawn, but I could very easily just add one to the length if it's
 even (lol)
+
+
+*** There was a problem with a swap file when I added everything to github, for some reason, I recovered an old version and then my changes 
+dissapeared. I need to find a way to get ovet this, or just get rid of swap files in general I guess*/
+
+/* We use the absolute value of the length/2-i/2  so that eventually when we reach the middle,
+i starts to go up instead. That way, when we know i has passed the middle, we can begin to increase the number of spaces again.
+
+Based on this value which goes from 4, 3, 2, 1, 0, 1, 2, 3, 4 , we can then notice that for i>8 subtracting the absolute value of 
+length/2-i/2 gives us the number of stars for the equivalent position where i < 8 (the middle).
+
+This means that we can use this and with our increasing spaces, subtract the number of stars properly and make a perfect diamond.
 */
-
-
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,15 +27,11 @@ int main()
 	program where I put a condition in the increment part of the for loop I guess*/
 	int length, counter;
 	counter = 0;
-	length = 100;
-	/* We use the absolute value of the length/2-i/2  so that eventually when we reach the middle,
-	i starts to go up instead. That way, when we know i has passed the middle, we can begin to increase the number of spaces again.
-	
-	Based on this value which goes from 4, 3, 2, 1, 0, 1, 2, 3, 4 , we can then notice that for i>8 subtracting the absolute value of 
-	length/2-i/2 gives us the number of stars for the equivalent position where i < 8 (the middle).
+	printf("Enter the length of the diamond: ");
+	scanf("%d", &length);
+	// Just add 1 if the number is odd so that we can get a nice diamond at the end	
+	if ( length%2 == 0 ) length++;
 
-	This means that we can use this and with our increasing spaces, subtract the number of stars properly and make a perfect diamond.
-	*/
 	// Print the entire length (all of the rows)	
 	for (int i = 0; i<=length*2-1; i+=2)
 	{
@@ -48,5 +54,4 @@ int main()
 
 	return 0;
 }
-
 
