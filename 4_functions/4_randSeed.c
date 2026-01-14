@@ -3,11 +3,13 @@
 
 So we ask the user to input the seed and then based on that the output of the rand function will change. The reason that the rand function
 works this way is so that it's easier to debug
+
+We can completely randomize the entry by using time
 */
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <time.h>
 int main()
 {
 	int seed;
