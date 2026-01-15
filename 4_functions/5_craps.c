@@ -7,12 +7,12 @@
 
 int main()
 {
-	/* I wonder if I can declare all of these together in one line */
-	int rollDice();
-	int count = 0;
-	int number;
-	int point;
-	int currentTime; /* Used to make sure that 1 second passes and the seed is different */
+	/*[I CAN] I wonder if I can declare all of these together in one line */
+	int rollDice(), count, number, point, currentTime;
+	count = 0;
+	// int number;
+	// int point;
+	// int currentTime; /* Used to make sure that 1 second passes and the seed is different */
 	while (1)
 	{
 		if (count == 0)	/*最初の投げ手*/
