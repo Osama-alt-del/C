@@ -37,7 +37,8 @@ ____________________SCOPE_____________________
 There are 4 scopes: function scope, file scope, block scope, and function-prototype scope. 
 
 Function scope:
-Labels (identifier followed by a colon such as start: or case:) are the only identifiers with this scope....
+Labels (identifier followed by a colon such as start: or case:) are the only identifiers with function scope. They can be 
+used anywhere in the function in which they appear, but can not be referenced outside the function body.
 
 
 
