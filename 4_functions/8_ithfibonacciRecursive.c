@@ -17,6 +17,7 @@ long fibonacci(long);
 
 int main()
 {
+	// This prints the first 10 fibonacci numbers
 	for (int i = 1; i <= 10; i++)
 	{
 		printf("Number %2d: %4ld\n", i, fibonacci(i));
@@ -28,15 +29,13 @@ int main()
 
 long fibonacci(long n)
 {
-	if (n == 1) return 1;
+	/* Segmentation fault if n==1 is the condition, I think that this is because if we have 2, 
+	we do fibnum = (fibonacci (1) + fibonacci (0) and fibnacci zero is != 1 so it will just keep running until
+	it accesses a part in memory it can't access I guess?
+
+	Anyway, we have to make it so that the position 1 to 2 gives us 1 so it should be n<=2*/
 	
+	if (n <= 2) return 1;
 	long fibnum;
-	fibnum = fibonacci(n-1) + fibonacci(n-2); // so add the previos two numbers
-	// ok so I get a seg fault after the first number is printed for some reason.
-	return fibnum;
-	/* Things to think about:
-		- Base case
-		- The recursive call	
-		- 書く前に図を書いた方が良いと思う
-	*/	
+	return fibnum = fibonacci(n-1) + fibonacci(n-2);
 }
