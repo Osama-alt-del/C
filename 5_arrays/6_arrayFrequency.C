@@ -1,0 +1,1 @@
+/* This is a C program where I will find the number of recurring elements in an array and then print them out as the frequency */
