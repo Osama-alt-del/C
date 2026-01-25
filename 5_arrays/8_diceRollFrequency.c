@@ -1,7 +1,9 @@
 /* This is a C program where I will roll a 6 sided die 6000 times and then display the frequencies of each roll using arrays */
 
 /* This program basically uses a frequency array where each index represents a roll and if we get 1 for example, 1 is added to the first
-element if we get 2, we add 1 to the second elemnt and so on. We then just display everything nicely and bam */
+element if we get 2, we add 1 to the second elemnt and so on. We then just display everything nicely and bam 
+
+This is a much nicer way to do this than the code in 4/3*/
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
