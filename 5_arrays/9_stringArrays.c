@@ -23,5 +23,12 @@ int main()
 	char str2[] = "123";
 	printf("%ld\n", strlen(str2)); /* Strlen will return the number of characters in the string, but not the null character */
 
+	for (int i = 0; i < strlen(str1); i++) 
+	{
+		printf("%c ", str1[i]);
+	}
+
+	printf("\n");
+
 	return 0;
 }
