@@ -3,8 +3,8 @@
 int len(int* array)
 {
 	int length;
-	length = sizeof(array)/sizeof(array[0]);
-	printf("%ld   %ld", sizeof(array), sizeof(array[0]));
+	length = sizeof(*array)/sizeof(array[0]);
+	printf("%ld\n", sizeof(array));
 	return length;
 
 }
