@@ -14,15 +14,16 @@ int partition(int* array, int low, int high){
     i = low;
     j = high;
     pivot = array[low];
-    while(i < j){
+    do{
         do{i++;}while(array[i] <= pivot); // find a value greater than the pivot
         do{j--;}while(array[j] > pivot); // find a value greater than the pivot
         if (i < j){ // If still finding position of pivot:
             swap(&array[i], &array[j]);
         }
-    }
+    }while(i < j);
     // swap once you've found the position of the pivot
     swap(&array[j], &array[low]);
+    return j;
 }
 
 // quickSort:
