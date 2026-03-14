@@ -1,13 +1,9 @@
 /* これはマージソートのファイルです。*/
 
-// よくわからないけど、とりあえず書きます：　（本から）
-
-// どうしたらバッファーのリストを関数内に作れるんだろう？
-
 void mergeSort(int* array, int size){
     int i, j, k, mid;
-    int buffer[10];
-    if (size <= 1) return;
+    int buffer[size];  /*｛｝を使わないなら、変数を使っても良い*/
+    if (size <= 1) return; /*一個のものでしかない場合、リターンする */
 
     mid = size/2;
 
