@@ -1,6 +1,7 @@
 /* This is a C program where I will try to reverse a string  */
 
 #include <stdio.h>
+// Using this is best for strings
 #include <string.h>
 #define MAXLIMIT 999/* This is our maximum limit for the input string */
 int main()
