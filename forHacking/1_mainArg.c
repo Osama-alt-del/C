@@ -5,6 +5,12 @@ They don't have to be called as such, that's just convention and it should be fo
 argc: the number of arguments that are passed into the main function through the command line
 argv: */
 
+/* This is very useful because it let's us maybe input and entire file into the function, and allows us to interface with the command line
+
+I wonder how we can make it print commands into the command line.
+
+Then I could make lots of neat software*/
+
 #include <stdio.h>
 
 // I don't really understand what *argv[] means. I assume this means it's a double pointer...

@@ -1,5 +1,5 @@
 /* This is a C program where I will simulate and print out 20 rolls of 6 sided dice 
-By writing 'rand() % num + 1' we get a random number in between 0 and num
+By writing 'rand() % num + 1' we get a random number in between 1 and num
 This can be summarized as n = a + rand() % b; where b is the width, and a is the start
 */
 
