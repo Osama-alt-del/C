@@ -10,12 +10,12 @@
 #include <stdio.h>
 #include "handy.h"
 
-#define SIZE 13 
+#define SIZE 10 
 
 void dutchFlag(int *, int);
 
 int main () { 
-    int array[SIZE] = {0, 1, 0, 2, 2, 0, 0, 1, 1, 2, 2, 0, 0}; 
+    int array[SIZE] = {1, 2, 0, 2, 1, 1, 0, 0, 0, 1}; 
 
     // print the array before
     printArray(array, SIZE);
@@ -50,18 +50,26 @@ void dutchFlag(int *array , int size){
 
     int insert_pos0 = 0;
     int insert_pos2 = size-1; // this has to start at the end of the array
-    for ( int i = 0; i < size; i ++ ) {
-        // put all of the zeroes in front
-        // These two if statements can sometimes make it so that the 1s are out of place
-        if (array[i] == 0 ) { // swap all 0s with the insert_pos0 element
-            swap(&array[i], &array[insert_pos0]); 
-            insert_pos0 ++; // then you just increment the "0 area"
+    int i = 0; // this is our epxloring index
+    // we can make i go to inser_pos2 because we don't need it to go all of the way
+    // it's better to use a while loop here:
+    while (i <= insert_pos2) { 
+        printf("%d %d\n", i, insert_pos2);
+        if (array[i] == 0) {
+            swap(&array[i], &array[insert_pos0]);
+            insert_pos0++; // increment position to insert 
+            i++; // increment the explorer 
         }
-
-        if (array[i] ==2) { 
-             swap(&array[i], &array[insert_pos2]); 
-             insert_pos2--;
+        else if (array[i] == 1 ) { 
+            i++; // Just increment (1s should be arranged automatically at the end so we skip)
+        }
+        
+        // we don't have to use else if, because this is searching an entirely different part of the array
+        else { // using size-1-i can make an infinite loop, (think of {2, 1, 0}).
+            swap(&array[i], &array[insert_pos2]);
+            insert_pos2--; // decrement position to insert
+            // [VERY IMPORTANT]:
+            // do not increment the explorer, (i) because we need to recheck the current value with the first if 
         }
     }
-    
 }
