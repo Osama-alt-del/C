@@ -6,11 +6,13 @@
 
 void moveZ(int*, int); // I assume I will only need the pointer and the size
 void moveZFast(int*, int); // this is faster O(n) with the same space complexity as the previos one
+void moveZeroStart(int*, int);
 
 int main() { 
     int array[SIZE] = {0, 0, 2, 0, 4};
     printArray(array, SIZE); 
-    moveZFast(array, SIZE);
+    // moveZFast(array, SIZE);
+    moveZeroStart(array, SIZE);
     printArray(array, SIZE); 
 
 
@@ -63,7 +65,7 @@ insert_pos will move by 1 only when a swap occurs (when i finds a non-zero numbe
 void moveZFast(int * array, int size) { 
     int insert_pos = 0; int temp;
     for (int i = 0; i < size; i ++) { 
-        if (array[i] !=0 )  {
+        if (array[i] !=0 )  { // if the value is not zero, then we will move it to the start of the array
             temp = array[i]; 
             array[i] = array[insert_pos];
             array[insert_pos] = temp;
@@ -73,3 +75,31 @@ void moveZFast(int * array, int size) {
     }
 
 }
+
+void moveZeroStart(int * array, int size) { 
+    // we will use 2 pointers
+    /*
+    int i = size-1;
+    int insert_pos = size-1;
+    while (i > 0) { 
+        if ( array[i] != 0 ) {  // if the value is not equal to zero, then skip it
+            swap(&array[i], &array[insert_pos]);            
+            insert_pos--;
+        }
+        // increment the explorer (unliked dutch national flag, we can do this whenever, no need to recheck)
+        i--;
+    }
+    */
+
+    // when you have pointers that cross, you must recheck, so this is wrong:
+    int i = 0;
+    int insert_pos = size-1;
+    while (i < size) {
+        if ( array[i] != 0 ) { 
+            swap(&array[i], &array[insert_pos]);
+            insert_pos--;
+        }
+        i++;
+    }
+}
+
