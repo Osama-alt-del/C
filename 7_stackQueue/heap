@@ -1,0 +1,22 @@
+// This is a file explaining the heap in C.
+
+A heap is a "tree-based" data structure that satisfies the heap property. 
+It keeps itself organized so you can always wquickly grab the smallest (or largest) element
+
+A heap is just a "binary tree" which follows the heap property. There are two heap properties for the 2 "flavors" of heap
+    "min-heap": every parent node is smaller than ( or equal to) its children.
+    "max-heap": every parent node is larger than (or equal to) its children.
+
+    and it also has the shape property  - it must be a complete b inary tree.
+
+you have to learn what a binary tree is
+
+
+
+
+
+
+
+
+
+

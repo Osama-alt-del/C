@@ -1,0 +1,25 @@
+What is the stack?: 
+    Every time a function is called, the program needs somewhere to put that function''s local variables, it's parameters, and critically the address it should jump back to when the function finishes. That "somewhere" is a chunk of memory called the "stack frame". Frames get pushed onto the stack when a function is called, and "popped" off when it returns.
+
+    It's called the stack because it behaves exactly like a stack data structure - last in, first out [LIFO]. The most recently called function is always the one sitting on top, and it's the only one actively running.
+
+    This is why recursion works. Each call gets it's own stack fram, with its own copy of the local variables, stacked on top of the previos call's fram. Each "frame" lives at a different address
+
+    The stack typically grows downwards. What this means is that the frames start at a higher numerical memory address and then start to get placed at lower numerical memory addresses the more there are:
+
+
+    Figure 1, visualisation of the stack and the heap
+        0x000... (low addresses) 
+         |heap  |
+         | v    |
+         |      |
+         |      |
+         |      |
+         |      |
+         | ^    | (the frame with the lowest address (closest to the heap) is the Last in, and therefore First out)
+         |stack | 
+        0xFFF... (high addresses)
+       
+       so it's something like the above 
+        
+    
