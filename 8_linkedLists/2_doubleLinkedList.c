@@ -1,3 +1,5 @@
+// ToDO: you need to allocate nodes dynamically (using malloc)
+// ask chat for more improvments (claude is slow)
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -23,7 +25,7 @@ int main() {
     struct node* head_p = &node1; // points to first
     struct node* tail_p = &node1; // point to last
 
-    appendNode(&tail_p, &node1); 
+    // appendNode(&tail_p, &node1);  // we don't need this, because the head and tail already include this.
     appendNode(&tail_p, &node2);
     appendNode(&tail_p, &node3);
 
@@ -87,16 +89,27 @@ void printList(struct node* head_p) {
 // ===Remove===
 // we have "back" so this should be easier:
 void removeEnd(struct node** tail_p_p) { 
+    // you should also make head NULL here, and tail NULL is the other one
+    if ((*tail_p_p)-> back == NULL) { 
+        *tail_p_p = NULL; // If there's only 1 node, then make the header NULL
+        return;
+    }
+
     struct node* prevNode = (*tail_p_p)->back;
 
     (*tail_p_p)->back = NULL; // remove tail back
-    (*tail_p_p)->back = NULL; // remove tail next
+    (*tail_p_p)->next = NULL; // remove tail next
 
     prevNode->next = NULL; // cut link to old tail
     *tail_p_p = prevNode; // the current tail is now the previos node
 }
 
 void removeStart(struct node** head_p_p) { 
+    if ((*head_p_p)-> next == NULL) { 
+        *head_p_p = NULL; // If there's only 1 node, then make the header NULL
+        return;
+    }
+
     struct node* nextNode = (*head_p_p)->next;
     
     (*head_p_p)->back = NULL; // remove head back
