@@ -1,0 +1,11 @@
+you can get a segfault if stack overflow occurs, or you try to access a part of memory that you do not have the permission to access. For example:
+
+// you can try this (it's in test.c)
+int main() { 
+    int* pt = NULL;
+
+    printf("%d\n", *pt); // trying to dereference a null pointer
+
+
+    return 0;
+}
