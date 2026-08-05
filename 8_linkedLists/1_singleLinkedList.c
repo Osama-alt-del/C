@@ -3,37 +3,40 @@
 // hint 1: arrow operator: foo->bar = (*foo).bar (it gets the member called bar from the struct that foo points to (very useful)
 
 // hint 2: you need to "call by reference" not call by value.
-// ifyou just pass head, then it will make a "copy" of head in that function scope, it won't edit the real head
+// if you just pass head, then it will make a "copy" of head in that function scope, it won't edit the real head
+
+// if you every want to actually change a value outside of a function, then you always have to pass it's pointer. If that value is a pointer, then you have to pass the pointer's pointer (tail)
 
 #include <stdio.h>
 #include <stdlib.h>
 
 struct node {
-    struct node* next; // this is the pointer pointing to the next node
+    struct node* next; // next pointer
     int data; // this is the  data that the element contains
 };
 
-struct node createNode(int);
-void appendNode(struct node, struct node*); // to add, we need the head and an element. 
-void printList(struct node); // we just need the head
+struct node createNode(int); 
+void appendNode(struct node**, struct node*); // call by reference
+void printList(struct node*); // just need head
 
 int main() { 
-    struct node head = createNode(5); // create the first node (head)
-    printf("head: %p\n", &head); // the real memory address of head.
-    
+    struct node head = createNode(5); // create first node (head)
+    struct node* tail_p = &head; // the tail points to the last node
+
     struct node node1 = createNode(6); // create the second node
+    struct node node2 = createNode(7); // create the third node
+    struct node node3 = createNode(8); // create the third node
 
-    appendNode(head, &node1);  // this isn't working and I'm gonna cry
 
-    // printf("%p\n", head.next);   
+    appendNode(&tail_p, &node1); 
+    appendNode(&tail_p, &node2);
+    appendNode(&tail_p, &node3);
 
-    printList(head); // should print out 5, 6
-
+    printList(&head);
     
     return 0;
 }
 
-// I will try and make it on my own, without searching up on google either.
 
 // Create node:
 struct node createNode(int value) { 
@@ -43,29 +46,31 @@ struct node createNode(int value) {
     return newNode;
 }
 
-// append:
-void appendNode(struct node head, struct node* newNode) { 
-    struct node* i = &head; // we start at head (maybe the problem is that I need to pass heads pointer as well)
-    printf("i: %p\n", i); // this should be pointing to head
+// O(1) with tail pointer
+void appendNode(struct node** tail_p_p, struct node* newNode_p) { 
+    //O(1) solution (taking tail as a paramter)
+    (*tail_p_p)->next = newNode_p; // you now point to the newNode.  
+    *tail_p_p = newNode_p; // the newNode is now the tail.
+
+    /* O(n) solution: (taking head as a paramter)
+    struct node* i = head;
     while (i->next != NULL) { 
         // printf("running\n");
         i = i->next; // become the next node that you are pointing to.
     }
-    // printf("%d\n", i.data);
     i->next = newNode; // you now point to the new node. 
-    printf("this is the pointer: %p\n",i->next);
+    */
 }
 
-// print everything:
-void printList(struct node head) {
-    struct node* i = &head; // has to be a pointer to change the value
+// Print (O(N)
+void printList(struct node* head) {
+    struct node* i = head; 
     printf("%d ", i->data); // print the first value.
-    while(i->next != NULL){  // while will not print the last value, so I need a 
-        printf("%d ", i->data); // print the data in I
-        i = i->next; // you are now what i is pointing to (become the next node).
+    while(i->next != NULL){ // while you can jump
+        i = i->next; // jump to next node
+        printf("%d ", i->data); // print current node data
     }
     printf("\n");
 }
 
 // Remove
-
