@@ -17,22 +17,28 @@ struct node {
 
 struct node createNode(int); 
 void appendNode(struct node**, struct node*); // call by reference
+void prependNode(struct node**, struct node*); // call by reference
 void printList(struct node*); // just need head
 
 int main() { 
-    struct node head = createNode(5); // create first node (head)
-    struct node* tail_p = &head; // the tail points to the last node
-
     struct node node1 = createNode(6); // create the second node
     struct node node2 = createNode(7); // create the third node
     struct node node3 = createNode(8); // create the third node
 
+    struct node* head = &node1; // points to first
+    struct node* tail_p = &node1; // point to last
 
     appendNode(&tail_p, &node1); 
     appendNode(&tail_p, &node2);
     appendNode(&tail_p, &node3);
 
-    printList(&head);
+    struct node node4 = createNode(5); // prepend node4
+    prependNode(&head, &node4);
+    struct node node5 = createNode(4); // prepend node5
+    prependNode(&head, &node5);
+
+
+    printList(head);
     
     return 0;
 }
@@ -46,7 +52,7 @@ struct node createNode(int value) {
     return newNode;
 }
 
-// O(1) with tail pointer
+// Insert at end O(1) with tail pointer
 void appendNode(struct node** tail_p_p, struct node* newNode_p) { 
     //O(1) solution (taking tail as a paramter)
     (*tail_p_p)->next = newNode_p; // you now point to the newNode.  
@@ -62,15 +68,22 @@ void appendNode(struct node** tail_p_p, struct node* newNode_p) {
     */
 }
 
-// Print (O(N)
-void printList(struct node* head) {
-    struct node* i = head; 
-    printf("%d ", i->data); // print the first value.
-    while(i->next != NULL){ // while you can jump
-        i = i->next; // jump to next node
-        printf("%d ", i->data); // print current node data
+// Add to the start O(1)
+void prependNode(struct node** head_p_p, struct node* newNode_p) { 
+    newNode_p->next = *head_p_p; // newNode points to head
+    *head_p_p = newNode_p; // newNode is now the head
+}
+
+// Print (O(N))
+void printList(struct node* head_p) {
+    struct node* node_p = head_p; 
+    printf("%d ", node_p->data); // print the first value.
+    while(node_p->next != NULL){ // while you can jump
+        node_p = node_p->next; // jump to next node
+        printf("%d ", node_p->data); // print current node data
     }
     printf("\n");
 }
 
 // Remove
+
