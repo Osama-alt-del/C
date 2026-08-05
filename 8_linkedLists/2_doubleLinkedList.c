@@ -1,23 +1,18 @@
-// This is a program where I will make a singly linked list. (the linked list will only take the data and then it will link the elements together. It needs to know the  pointer
-
-// hint 1: arrow operator: foo->bar = (*foo).bar (it gets the member called bar from the struct that foo points to (very useful)
-
-// hint 2: you need to "call by reference" not call by value.
-// if you just pass head, then it will make a "copy" of head in that function scope, it won't edit the real head
-
-// if you every want to actually change a value outside of a function, then you always have to pass it's pointer. If that value is a pointer, then you have to pass the pointer's pointer (tail)
-
 #include <stdio.h>
 #include <stdlib.h>
 
 struct node {
     struct node* next; // next pointer
+    struct node* back; // back pointer
     int data; // this is the  data that the element contains
 };
 
 struct node createNode(int); 
+
 void appendNode(struct node**, struct node*); // call by reference
 void prependNode(struct node**, struct node*); // call by reference
+void removeEnd(struct node**);
+void removeStart(struct node**);
 void printList(struct node*); // just need head
 
 int main() { 
@@ -25,7 +20,7 @@ int main() {
     struct node node2 = createNode(7); // create the third node
     struct node node3 = createNode(8); // create the third node
 
-    struct node* head = &node1; // points to first
+    struct node* head_p = &node1; // points to first
     struct node* tail_p = &node1; // point to last
 
     appendNode(&tail_p, &node1); 
@@ -33,13 +28,24 @@ int main() {
     appendNode(&tail_p, &node3);
 
     struct node node4 = createNode(5); // prepend node4
-    prependNode(&head, &node4);
+    prependNode(&head_p, &node4);
     struct node node5 = createNode(4); // prepend node5
-    prependNode(&head, &node5);
+    prependNode(&head_p, &node5);
 
 
-    printList(head);
+    printList(head_p);
+
+    removeEnd(&tail_p);
     
+    printList(head_p); 
+
+    removeEnd(&tail_p);
+
+    printList(head_p); 
+
+    removeStart(&head_p); // works like a charm
+
+    printList(head_p); 
     return 0;
 }
 
@@ -48,29 +54,22 @@ int main() {
 struct node createNode(int value) { 
     struct node newNode;
     newNode.data = value;
-    newNode.next = NULL; // for now you don't have to point to anything
+    newNode.next = NULL;
+    newNode.back = NULL; 
     return newNode;
 }
 
 // Insert at end O(1) with tail pointer
 void appendNode(struct node** tail_p_p, struct node* newNode_p) { 
-    //O(1) solution (taking tail as a paramter)
     (*tail_p_p)->next = newNode_p; // you now point to the newNode.  
+    newNode_p->back = (*tail_p_p); // back of new is old tail
     *tail_p_p = newNode_p; // the newNode is now the tail.
-
-    /* O(n) solution: (taking head as a paramter)
-    struct node* i = head;
-    while (i->next != NULL) { 
-        // printf("running\n");
-        i = i->next; // become the next node that you are pointing to.
-    }
-    i->next = newNode; // you now point to the new node. 
-    */
 }
 
 // Add to the start O(1)
 void prependNode(struct node** head_p_p, struct node* newNode_p) { 
     newNode_p->next = *head_p_p; // newNode points to head
+    (*head_p_p)->back = newNode_p; // old head points back to new
     *head_p_p = newNode_p; // newNode is now the head
 }
 
@@ -86,7 +85,23 @@ void printList(struct node* head_p) {
 }
 
 // ===Remove===
-//removing becomes much faster with "back" pointers so I will use those as well. (O(1))
+// we have "back" so this should be easier:
+void removeEnd(struct node** tail_p_p) { 
+    struct node* prevNode = (*tail_p_p)->back;
 
+    (*tail_p_p)->back = NULL; // remove tail back
+    (*tail_p_p)->back = NULL; // remove tail next
 
+    prevNode->next = NULL; // cut link to old tail
+    *tail_p_p = prevNode; // the current tail is now the previos node
+}
 
+void removeStart(struct node** head_p_p) { 
+    struct node* nextNode = (*head_p_p)->next;
+    
+    (*head_p_p)->back = NULL; // remove head back
+    (*head_p_p)->next = NULL; // remove head next
+
+    nextNode->back = NULL; // Cut link to old head  
+    (*head_p_p) = nextNode; // nextNode is now new head
+}
