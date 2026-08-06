@@ -1,8 +1,16 @@
-// ToDO: you need to allocate nodes dynamically (using malloc)
-//      use a struct for head and tail so you can check them safely if they are null
-//      change name of headTail in functions to headTail_p (because it's a pointer not a node)
+/* 
+ToDO:   you need to allocate nodes dynamically (using malloc)                                       [DONE]
+        Use a struct for head and tail so you can check them safely if they are null                [DONE]
+        change name of headTail in functions to headTail_p (because it's a pointer not a node)      [DONE]
 
-//      Change struct name node to capital (convention)
+        Change struct name node to capital (convention)
+
+    Tests:
+        make sure that all of the functions work even when the head and tail are both NULL 
+        make sure that constantly removing doesn't work if you end up with NULL (empty list)
+
+
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,27 +40,32 @@ int main() {
 
     struct HeadTail headTail = {NULL, NULL}; // pretty sure we can do this to say both are NULL
 
+    // try all of the functions when both head and tail are still null
+
     // yay it works! I need to do a lot more tests though
     appendNode(&headTail, createNode(3));
     appendNode(&headTail, createNode(5));
+    appendNode(&headTail, createNode(10));
+
+    printList(&headTail);
+
+    removeStart(&headTail); // let's see if this works, it does , yay
+
+    printList(&headTail);
+
+    removeEnd(&headTail); // now let's see this one, this works fine as well.
 
     printList(&headTail);
 
     freeAll(&headTail);
+
     return 0;
 }
 
 
 
-// Create node: (doesn't make sense to create a node, it is not appended.
+// Create node: (doesn't make sense to create a node, it is not appended)
 struct node* createNode(int value) { 
-    /*
-    struct node newNode;
-    newNode.data = value;
-    newNode.next = NULL;
-    newNode.back = NULL; 
-    return newNode;
-    */
     // dynamically allocate memory for the node (using malloc) (which returns a pointer to the allocated memory 
     // this only frees memory of a certain size and returns the pointer, how do I define the node?
     struct node* i = (struct node*) malloc(sizeof(struct node));
