@@ -1,20 +1,13 @@
-/* 
-ToDO:   you need to allocate nodes dynamically (using malloc)                                       [DONE]
-        Use a struct for head and tail so you can check them safely if they are null                [DONE]
-        change name of headTail in functions to headTail_p (because it's a pointer not a node)      [DONE]
-
-        Change struct name node to capital (convention)                                             [DONE]
-
-    Tests:
-        make sure that all of the functions work even when the head and tail are both NULL          [DONE]
-        make sure that constantly removing doesn't work if you end up with NULL (empty list)        [DONE]
-
-
-*/
+// This is a header file for the linked list code that I wrote, so that I can use it whenever I want
+// maybe I should split into a c file and a h file so that I can speed up compile time...
+// But it's not like I have an object? Maybe it can still work. I need to look it up.
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
 
 #include <stdio.h>
 #include <stdlib.h>
 
+// =================Node and headTaili structs=====================
 struct Node {
     struct Node* next; // next pointer
     struct Node* back; // back pointer
@@ -26,69 +19,10 @@ struct HeadTail {
     struct Node* tail; // we won't get segfault by first trying to access a NULL memory address
 };
 
-// for dynamic memory this will be a pointer to the memory in the heap
-struct Node* createNode(int);  // maybe this should be dynamic? and it should return the memory address of the node
 
-void appendNode(struct HeadTail*, struct Node*); // call by reference
-void prependNode(struct HeadTail*, struct Node*); // call by reference
-void removeEnd(struct HeadTail*);
-void removeStart(struct HeadTail*);
-void printList(struct HeadTail*); // just need head
-void freeAll(struct HeadTail*);
+// ================Functions==================
 
-int main() { 
-
-    struct HeadTail headTail = {NULL, NULL}; // pretty sure we can do this to say both are NULL
-
-    // try all of the functions when both head and tail are still null
-
-    // ok start, end and printList work no problem
-    printf("End NULL:\n");
-    removeEnd(&headTail);
-    printf("Start NULL:\n");
-    removeStart(&headTail);
-    printf("Print NULL:\n");
-    printList(&headTail);
-
-
-
-    // yay it works! I need to do a lot more tests though
-    // should give us 1, 7, 3, 5, 10    [SUCCESS]
-    prependNode(&headTail, createNode(7));
-    appendNode(&headTail, createNode(3));
-    appendNode(&headTail, createNode(5));
-    appendNode(&headTail, createNode(10));
-    prependNode(&headTail, createNode(1));
-
-    printList(&headTail); 
-
-    removeStart(&headTail); // let's see if this works, it does , yay
-
-    printList(&headTail);
-
-    removeEnd(&headTail); // now let's see this one, this works fine as well.
-
-    printList(&headTail);
-    removeStart(&headTail); 
-    removeStart(&headTail);
-    removeStart(&headTail);
-    removeStart(&headTail); 
-    printf("removed all\n"); // if this doesn't print, then we know the problem is above.
-    printList(&headTail); // this is hte problem ?? (we need to check if this is null)
-
-    printf("finished printing\n");
-    freeAll(&headTail);
-    printf("freed?\n"); // I think this is the problem, because I don't have a NULL check here.
-
-    return 0;
-}
-
-
-
-// Create node: (doesn't make sense to create a node, it is not appended)
 struct Node* createNode(int value) { 
-    // dynamically allocate memory for the node (using malloc) (which returns a pointer to the allocated memory 
-    // this only frees memory of a certain size and returns the pointer, how do I define the node?
     struct Node* i = (struct Node*) malloc(sizeof(struct Node));
     if (i == NULL){
          printf("[Error] createNode(): メモリーの確保に失敗しました\n");
@@ -106,7 +40,6 @@ struct Node* createNode(int value) {
 void appendNode(struct HeadTail* headTail_p, struct Node* newNode_p) { 
     // checking if tail is NULL
     if (headTail_p->tail == NULL) { 
-        // printf("AppendNode: [EMPTY LIST] Tail is null\n");
         headTail_p->tail = newNode_p; // the new node is now the tail of the linked list
         headTail_p->head = newNode_p; // since it's empty the head also points to thew newNode
         return;
@@ -114,19 +47,12 @@ void appendNode(struct HeadTail* headTail_p, struct Node* newNode_p) {
     headTail_p->tail->next = newNode_p; // you now point to the newNode
     newNode_p->back = headTail_p->tail; // back of new is old tail (add to end)
     headTail_p->tail = newNode_p; // newNode is now the tail
-
-    /*
-    (*tail_p_p)->next = newNode_p; // you now point to the newNode.  
-    newNode_p->back = (*tail_p_p); // back of new is old tail
-    *tail_p_p = newNode_p; // the newNode is now the tail.
-    */
 }
 
 // Add to the start O(1)
 void prependNode(struct HeadTail* headTail_p, struct Node* newNode_p) { 
     // checking if head is NULL
     if (headTail_p->head == NULL) { 
-        // printf("Prepend Node: [EMPTY LIST] The head is null\n");
         headTail_p->head = newNode_p; // the new node is now the head
         headTail_p->tail = newNode_p;
         return;
@@ -152,9 +78,6 @@ void printList(struct HeadTail* headTail_p) {
 }
 
 // ===Remove===
-// we have "back" so this should be easier:
-
-// we need to use "free" because we have dynamic memory.
 void removeEnd(struct HeadTail* headTail_p) { 
     // Check if head/tail are null
     if (headTail_p->head == NULL && headTail_p->tail == NULL) { 
@@ -162,12 +85,9 @@ void removeEnd(struct HeadTail* headTail_p) {
     }
 
     // Check if there is only 1 node
-    if (headTail_p->tail->back == NULL) {  // this is if there is only 1 node, so we should make the head NULL as well
-        // free the tail
-        free(headTail_p->tail);
-
-        // make the tail and head equal to NULL
-        headTail_p->tail = NULL; headTail_p->head = NULL;
+    if (headTail_p->tail->back == NULL) {
+        free(headTail_p->tail); // free the tail
+        headTail_p->tail = NULL; headTail_p->head = NULL; // make the tail and head equal to NULL
         return;
     }
 
@@ -189,11 +109,9 @@ void removeStart(struct HeadTail* headTail_p) {
 
     // Check if 1 Node
     if (headTail_p->head->next == NULL) {  // this is if there is only 1 node, so we should make the head NULL as well
-        // free the head
-        free(headTail_p->head);
+        free(headTail_p->head); // free the head
+        headTail_p->tail = NULL; headTail_p->head = NULL; // make the tail and head equal to NULL
 
-        // make the tail and head equal to NULL
-        headTail_p->tail = NULL; headTail_p->head = NULL;
         return;
     }
 
@@ -202,19 +120,17 @@ void removeStart(struct HeadTail* headTail_p) {
     struct Node* nextNode = headTail_p->head->next;
     
     free(headTail_p->head); // we free the old head.
-
     nextNode->back = NULL; // Cut link to old head  
     headTail_p->head = nextNode; // nextNode is now new head
 }
 
-// we want to access and change the "node" value which head points to, not "head" so we will use a single pointer
-// this is useful at end of main()
 void freeAll(struct HeadTail* headTail_p) {
-    // Firstly check NULL
+    // Check Null
     if (headTail_p->head == NULL && headTail_p->tail == NULL) { 
         return; // don't do anything because it's already an empty list
     }
-    // free all memory here
+
+    // Cycle through and clear all of the memory.
     struct Node*i = headTail_p->head; // i points to the same location
     struct Node*j = i->next; // used to store next pointer before freeing the memory
     while(i->next!=NULL){
@@ -225,3 +141,6 @@ void freeAll(struct HeadTail* headTail_p) {
     free(i); // free last value.
     printf("[Memory freed]\n");
 }
+
+#endif
+
