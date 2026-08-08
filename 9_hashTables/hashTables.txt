@@ -1,0 +1,22 @@
+hash table aka hash map gives average O(1) lookups, insertions and deletions, by using a function to convert keys into array indices
+but the worst case for all of these is still O(n)
+
+The hash function takes the key (string/number) and converts it into a number, allowing it to know where the value of the key should be
+
+Each slot in a hash table is called a "bucket"
+
+sometimes the hash function might give 2 different keys the same index (collision). There are 2 solutions. 
+    1: Chaining: make a linked list at that index (bucket), holding all entries that hash there.
+    2: Open Adressing: search for the next open slot (linear probing, quadratic probing)
+
+
+Why avg case O(1) but worst case O(n)
+    Too many collisions (due to a bad hash function) means one bucket could hold all of the elements, which would degrade into a linked-list traversal (O(n))
+    This is why hash tables resize (rehash), tracked via a load factor = items stored/number of buckets. Once it crosses a threshold (commonly ~0.7) the table grows and everything gets rehashed into a bigger array.
+
+    Python dict, JS Object/Map, Java HashMap, C++ unordered_map - all hash functions under the hood. (have to make your own in C (yay))
+
+Structure	Lookup by key/value	Insert  	        Ordered?
+Array	        O(n)            	O(n)(mid) / O(1) (end)	Yes
+Linked list	O(n)            	O(1)(if position known)	Yes
+Hash table	O(1) avg	        O(1) avg	        No (usually)

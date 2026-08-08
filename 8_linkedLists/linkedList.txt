@@ -1,0 +1,7 @@
+Linked list insertion/ deletion when you have a pointer: just delete pointers O(1)
+Array insertion/deletion when you know the index: remove/shift O(n)
+
+Random access for arrays = O(1) with the index array[i].
+Random access for linked lists = O(n) with the number of the node that you want to access.
+
+Linked lists have high per-element overhead
