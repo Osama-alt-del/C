@@ -1,0 +1,93 @@
+// This is a C program where I will make my own "dynamic array" using realloc() and stuff (basically replacating what happens in std::vector)
+
+/* to do: add a variable that tells you where the "tail" of the array is and then you can just check based on that tail, if you will go overboard if you add one more value, in which case, run the reallocation function
+
+    since this means that you need to track and change a value within the datastruct in different stack frames, you need to do a call by reference to the data struct instead.
+
+
+later:
+Using the logic that you've built it with, try and make it so that it's very easy and convenient to use. could you make it so that you just have to write arrData[4] to access an element somehow?
+*/
+    
+
+/*
+- I will have a basic function that returns a pointer to an array (that can be used) [this is hard but I need to learn this]
+        - static arrays live in the data segment of the program for the program's whole lifetime., which is not thread safe. Every call shares the same memory, if two threads call it concurrently, they'll stomp on each toher's data. for example:
+
+                          int *a = getArray();
+                          int *b = getArray();
+                          a[0] = 99;
+                          printf("%d\n", b[0]); // prints 99
+        only one instance of the data can exist at a time.
+
+    - The most idiomatic C is a caller allocated buffer (for example defining the variable in the main function and calling another function)
+    
+    - For this, we can also have a struct that holds a pointer to the array in malloc, along with the size and the 
+
+- Then whenever I want to add a value to that array, I will check if I can (if it's full or not). If I can't (array full), then I will have  to make it so that I realloc() memory with a new size (double the old size) and keep adding values. capacity will be the total memory that is available in the allocated memory, and length is the total number of values
+    
+
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// dataStruct.ptr[0]. Is what the array will look like basically
+struct ArrData { 
+    int* ptr; // pointer to the point in memory
+    int length; // number of values
+};
+
+// what's important is that we have the exact same value for the pointer, which is perfect.
+// we don't need to change this pointer and for it to retain that change, so we can just copy (call with value)
+void setNullArray(struct ArrData arrData){  
+    for (int i = 0; i < arrData.length; i++) { 
+        arrData.ptr[i] = NULL; // set everything to null so that we can know when something is set to null or not
+    }
+}
+
+// you can return structs from functions in C
+struct ArrData createDynArray(int size) { 
+    struct ArrData arrData;
+    arrData.length = size; /* number of values */
+    arrData.ptr = (int *)malloc(size * sizeof(int)); /* allocate memory */
+    setNullArray(arrData); /* It will target the same point in memory */
+    return arrData; /* return the arrData structure */
+}
+
+
+// can I do this with this without a pointer? (yesss I can)
+void clearDynArray(struct ArrData arrData){ 
+    printf("%p \n", arrData.ptr); // checking if it's the same as the caller
+    free(arrData.ptr);
+}
+
+// adding to the array (append)
+void appendArray(struct ArrData arrData) { 
+    // if we have a var that tracks the length of the Array
+
+    // for now we will "find the end of the array"
+    int end = 0;
+
+    // I don't know if we can do this, I sure hope so (this will loop until we get a null value, if not it shouldn't loop anymore
+    int i; /* make it's scope outside the for loop, so that we can check it and use later */
+    for (i = 0; (i < arrData.length) && (arrData.ptr[i] != NULL); i++) {} /* [PROBLEM --- You can't use NULL here, I need some other value to check] */
+
+
+    printf("Empty index: %d \n", i); /* I need to know i*/
+
+}
+
+
+int main() { 
+    struct ArrData arrData  = createDynArray(5);
+
+    // let's add to the array
+    appendArray(arrData);
+    
+
+    clearDynArray(arrData);
+
+    return 0;
+}
+
