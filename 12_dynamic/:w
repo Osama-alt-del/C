@@ -39,81 +39,50 @@ struct ArrData {
     int tail; 
 };
 
+// what's important is that we have the exact same value for the pointer, which is perfect.
+// we don't need to change this pointer and for it to retain that change, so we can just copy (call with value)
+void setNullArray(struct* ArrData arrData){  
+    for (int i = 0; i < arrData->length; i++) { 
+        arrData->ptr[i] = NULL; // set everything to null so that we can know when something is set to null or not
+    }
+}
 
 // you can return structs from functions in C
 struct ArrData createDynArray(int size) { 
     struct ArrData arrData;
     arrData.length = size; /* number of values */
-    arrData.ptr = (int *)malloc(size * sizeof(int)); /* allocate memory (I hope everything will be 0 at first)*/
+    arrData.ptr = (int *)malloc(size * sizeof(int)); /* allocate memory */
     arrData.tail = 0; /* the tail will start at the end */
+    setNullArray(arrData); /* It will target the same point in memory */
     return arrData; /* return the arrData structure */
 }
 
 
-void freeDynArray(struct ArrData* arrData){ 
+void freeDynArray(struct* ArrData arrData){ 
     free(arrData->ptr);
 }
 
-/* Function to reallocate memory */
-void reallocateMemory(struct ArrData* arrData) { 
-    /* Double the available memory for now */
-    arrData->ptr = realloc(arrData->ptr, arrData->length*2 * sizeof(*arrData->ptr)); 
-    arrData->length *= 2; /* the length is now double */
-}
-
 // adding to the array (append)
-void appendArray(struct ArrData* arrData, int value) { 
-    /*
-    if the tail is at the end, then we will change the current value and add 1 to the tail, making it larger than the length, which is fine 
-    this means that we need to compare it to the length -1, or check if it's less than < arrData->length
-    */
-    if (arrData->tail < arrData->length) { /* Check if we can add a value */
-        arrData->ptr[arrData->tail] = value; /* Add the value to the end of the array */
-        arrData->tail++;
-    } else if (arrData->tail >= arrData->length) { 
-        reallocateMemory(arrData); /* reallocate memory */
+void appendArray(struct* ArrData arrData) { 
 
-        arrData->ptr[arrData->tail] = value; /* should have enough memory to add value */
-        arrData->tail++; 
-    }
-}
+    // I don't know if we can do this, I sure hope so (this will loop until we get a null value, if not it shouldn't loop anymore
+    int i; /* make it's scope outside the for loop, so that we can check it and use later */
+    for (i = 0; (i < arrData.length) && (arrData.ptr[i] != NULL); i++) {} /* [PROBLEM --- You can't use NULL here, I need some other value to check] */
 
-void printArray(struct ArrData * arrData) {
-    for (int i = 0; i < arrData->length; i++) {
-        printf("%d ", arrData->ptr[i]); /* I think all of the values are set to 0 from the get go */
-    }
-    printf("\n");
+
+    printf("Empty index: %d \n", i); /* I need to know i*/
+
 }
 
 
 int main() { 
     struct ArrData arrData  = createDynArray(5);
-    
-    printArray(&arrData);
 
     // let's add to the array
-    appendArray(&arrData, 10);
-    appendArray(&arrData, 9);
-    appendArray(&arrData, 8);
+    appendArray(arrData);
     
-    appendArray(&arrData, 10);
-    appendArray(&arrData, 9);
-    appendArray(&arrData, 8); 
 
-    // Check the array value (we can print to tail //
-    printArray(&arrData);
-
-    appendArray(&arrData, 10);
-    appendArray(&arrData, 9);
-    appendArray(&arrData, 8);
-    
-    appendArray(&arrData, 10);
-    appendArray(&arrData, 9); // cool, it works nicely
-    appendArray(&arrData, 8); 
-    
-    printArray(&arrData);
-
-    freeDynArray(&arrData); /* I think this is working fine? how do I check? */
+    freeDynArray(arrData);
 
     return 0;
 }
