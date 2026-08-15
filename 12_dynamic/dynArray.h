@@ -1,3 +1,6 @@
+#ifndef DYN_ARRAY_H /* header guards */
+#define DYN_ARRAY_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,7 +9,6 @@ struct DynArray {
     int capacity; // number of values
     int length;  // index of the latest value in the array
 };
-
 
 /* you can return structs from functions in C */
 struct DynArray createDynArray(int size) { 
@@ -56,10 +58,6 @@ void reallocateMemory(struct DynArray* arrData) {
 
 /* adding to the array (append) */
 void appendArray(struct DynArray* arrData, int value) { 
-    /*
-    if the length is at the end, then we will change the current value and add 1 to the length, making it larger than the length, which is fine 
-    this means that we need to compare it to the length -1, or check if it's less than < arrData->length
-    */
     if (arrData->length < arrData->capacity) { /* Check if we can add a value */
         arrData->val[arrData->length] = value; /* Add the value to the end of the array */
         arrData->length++;
@@ -71,60 +69,4 @@ void appendArray(struct DynArray* arrData, int value) {
     }
 }
 
-void printArray(struct DynArray * arrData) {
-    for (int i = 0; i < arrData->length; i++) { /* we will print all of the available values */
-        printf("%d ", arrData->val[i]); 
-    }
-    printf("\n");
-}
-
-
-int main() { 
-    struct DynArray array = createDynArray(0); // starts with a size of 0
-
-    for (int i = 0; i < 10; i++) { 
-        appendArray(&array, i);
-    }
-
-
-
-    printArray(&array);
-
-
-
-
-    /*
-    struct DynArray array  = createDynArray(5);
-    
-    // printArray(&arrData); // so this will print nothing 
-
-    // let's add to the array
-    appendArray(&array, 10);
-    appendArray(&array, 9);
-    appendArray(&array, 8);
-    
-    appendArray(&array, 10);
-    appendArray(&array, 9);
-    appendArray(&array, 8); 
-
-    // Check the array value (we can print to length //
-    printArray(&array);
-
-    appendArray(&array, 10);
-    appendArray(&array, 9);
-    appendArray(&array, 8);
-    
-    appendArray(&array, 10);
-    appendArray(&array, 9); // cool, it works nicely
-    appendArray(&array, 8); 
-    
-    printArray(&array);
-    */
-
-
-    freeDynArray(&array);
-
-
-    return 0;
-}
-
+#endif
