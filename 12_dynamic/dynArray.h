@@ -6,53 +6,6 @@
 #include <string.h> // for memcpy
 
 
-/*
-
-// isn't this more like a linked list???
-
-note about void type : 
-
-a void * is like saying: "I'm a pointer to something, but I'm not telling you what"
-
-so if I have: 
-
-       | - void * ptr;
-       | - *p; // I don't know what this is "how many bytes am I meant to be looking at ?
-       | - p[3]; // same problem - I can't compute the offset because I don't know the size 
-       | - p+1; // Can't computer one element without knowing element size
-
-Using memcpy:
-    void* memcpy(void* dest, const void* src, size_t n); // takes void for both dest and source
-    
-    // memcpy operates in terms of raw bytes instead of "elements". you tell it how many bytes to copy via "n" 
-    // it just goes through the following logic:
-
-    void* memcpy(void* dest, const void* src, size_t n) { 
-        char * d = dest; // we set to char because the size of char is 1 byte, and we want to copy 1 byte at a time
-        const char * s = src;  // set to const (principle of least privilege)
-        
-        // keep in mind that n is in size_t (which is in bytes)
-        for ( size_t i = 0; i < n; i++) { 
-            d[i] = s[i]; // copy the data into the destination array
-        }
-
-        return dest; // this is just for convenience;
-
-    }
-
-    so we can use memcpy for void * like so:
-
-
-        // we can use char* so that teh compiler isn't confused and also so that when we do pointer arithmetic, the compiler doesn't implicitly scale the arithmetic (if we use int* as a conversion, then the compiler might go ahead and multiply the offset by 4)
-
-        // make sure you do a check to see if we have enough memory to insert the new value before this.
-        - void* dest = (char*)arrData->val + (arrData->length * arrData->elemSize); // next empty slot
-        - memcpy(dest, value, arrData->elemSize);  // write new value there
-        - arrData->length++;  // NOW length reflects the new count, and also points to the *next* empty slot after this one
-
-*/
-
-
 // enum will automatically assign integers to these values (enumerate them), so TYPE_CHAR will basically be == to 0, TYPE_INT will be == 1 etc
 // add a lookup table with the TYPEs as the indices (because they go from 0 to 1) and then linkn that to the sizes)
 typedef enum {
@@ -85,7 +38,7 @@ typedef enum {
 // Static: this is already "static duration" "lives for the whole program, because it is global, however" we can
 // make sure that there are no name clashes (there will only be one copy of type sizes for each translation unit
 // this is just an array of type size_t, so this is defined (it's not a struct)
-static const size_t typeSizes[TYPE_COUNT] = {
+static const size_t typeSizes[16] = {
     [TYPE_CHAR]               = sizeof(char),
     [TYPE_SIGNED_CHAR]        = sizeof(signed char),
     [TYPE_UNSIGNED_CHAR]      = sizeof(unsigned char),
@@ -124,19 +77,6 @@ typedef struct {
 /* you can return structs from functions in C */
 // normal declaration: DynArray a = createDynArray(0, sizeof(int), TYPE_INT); // Ithink we should make it so we only take the type
 DynArray createDynArray(int size, ElementType elementType) {  // now we don't input the size, 
-    // making sure the elementSize isn't 0
-    if (elementSize == 0 ) { 
-        printf("[CREATE DYN ARRAY | ERROR] Invalid Size of Element\n");
-        DynArray arrData;
-        // make everythin null (I think we don't even need this, but we will keep it for now)
-        arrData.elemSize = 0; 
-        arrData.length = 0;
-        arrData.capacity = 0;
-        arrData.val = 0;
-        return arrData; /* return the useless arrData */
-    }
-
-
     // maybe change this to be cleaner later (try and allocate memory and then check first)
     DynArray arrData;
     arrData.elemSize = typeSizes[elementType]; // save the size of each individual element
@@ -229,32 +169,103 @@ void* getElement(DynArray* arrData, int index) {
     return value; // return that address  (could return int, but that's not type - agnostic)
 }
 
+void printer(ElementType elementType, void *value) {
+    switch (elementType) {
+        case TYPE_CHAR: {
+            char *v = value;
+            printf("%c ", *v);
+            break;
+        }
+        case TYPE_SIGNED_CHAR: {
+            signed char *v = value;
+            printf("%d ", *v);
+            break;
+        }
+        case TYPE_UNSIGNED_CHAR: {
+            unsigned char *v = value;
+            printf("%u ", *v);
+            break;
+        }
+        case TYPE_SHORT: {
+            short *v = value;
+            printf("%hd ", *v);
+            break;
+        }
+        case TYPE_UNSIGNED_SHORT: {
+            unsigned short *v = value;
+            printf("%hu ", *v);
+            break;
+        }
+        case TYPE_INT: {
+            int *v = value;
+            printf("%d ", *v);
+            break;
+        }
+        case TYPE_UNSIGNED_INT: {
+            unsigned int *v = value;
+            printf("%u ", *v);
+            break;
+        }
+        case TYPE_LONG: {
+            long *v = value;
+            printf("%ld ", *v);
+            break;
+        }
+        case TYPE_UNSIGNED_LONG: {
+            unsigned long *v = value;
+            printf("%lu ", *v);
+            break;
+        }
+        case TYPE_LONG_LONG: {
+            long long *v = value;
+            printf("%lld ", *v);
+            break;
+        }
+        case TYPE_UNSIGNED_LONG_LONG: {
+            unsigned long long *v = value;
+            printf("%llu ", *v);
+            break;
+        }
+        case TYPE_FLOAT: {
+            float *v = value;
+            printf("%f ", *v);
+            break;
+        }
+        case TYPE_DOUBLE: {
+            double *v = value;
+            printf("%f ", *v);
+            break;
+        }
+        case TYPE_LONG_DOUBLE: {
+            long double *v = value;
+            printf("%Lf ", *v);
+            break;
+        }
+        case TYPE_BOOL: {
+            bool *v = value;
+            printf("%s ", *v ? "true" : "false");
+            break;
+        }
+        case TYPE_POINTER: {
+            void **v = value;
+            printf("%p ", *v);
+            break;
+        }
+        default:
+            printf("[PRINTER | ERROR] : unknown type\n");
+            break;
+    }
+}
 void printArray(DynArray* arrData) { 
     // could use a switch statement to check the element size and based on that, decide how to declare
     // potential problem : what if there are variables of the same size, but different types (hopefully this isnt' the case)
     for ( int i = 0; i < arrData->length; i++) { 
-        switch (arrData->elemSize) { 
-            case 4:
-                int *value = getElement(arrData, i); // we know if the size is 4, it's an integer
-                printf("%d ", *value);
-                break;
-            // write the other cases here.
-            case 4:
-                int *value = getElement(arrData, i); // we know if the size is 4, it's an integer
-                printf("%d ", *value);
-                break;
-            case 4:
-                int *value = getElement(arrData, i); // we know if the size is 4, it's an integer
-                printf("%d ", *value);
-                break;
-            case 4:
-                int *value = getElement(arrData, i); // we know if the size is 4, it's an integer
-                printf("%d ", *value);
-                break;
-        }
+        printer(arrData->elemType, getElement(arrData, i)); // this might be really slow
     }
     printf("\n");
     
+    
 }
+
 
 #endif
