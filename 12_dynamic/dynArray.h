@@ -54,6 +54,7 @@ Using memcpy:
 
 
 // enum will automatically assign integers to these values (enumerate them), so TYPE_CHAR will basically be == to 0, TYPE_INT will be == 1 etc
+// add a lookup table with the TYPEs as the indices (because they go from 0 to 1) and then linkn that to the sizes)
 typedef enum {
     TYPE_CHAR,               // char
     TYPE_SIGNED_CHAR,        // signed char
@@ -79,6 +80,29 @@ typedef enum {
 
     TYPE_POINTER,              // void* (generic pointer)
 } ElementType; // alias name
+
+// lookup table linking to the sizes of the elements (so we only have to enter the type)
+// Static: this is already "static duration" "lives for the whole program, because it is global, however" we can
+// make sure that there are no name clashes (there will only be one copy of type sizes for each translation unit
+// this is just an array of type size_t, so this is defined (it's not a struct)
+static const size_t typeSizes[TYPE_COUNT] = {
+    [TYPE_CHAR]               = sizeof(char),
+    [TYPE_SIGNED_CHAR]        = sizeof(signed char),
+    [TYPE_UNSIGNED_CHAR]      = sizeof(unsigned char),
+    [TYPE_SHORT]              = sizeof(short),
+    [TYPE_UNSIGNED_SHORT]     = sizeof(unsigned short),
+    [TYPE_INT]                = sizeof(int),
+    [TYPE_UNSIGNED_INT]       = sizeof(unsigned int),
+    [TYPE_LONG]               = sizeof(long),
+    [TYPE_UNSIGNED_LONG]      = sizeof(unsigned long),
+    [TYPE_LONG_LONG]          = sizeof(long long),
+    [TYPE_UNSIGNED_LONG_LONG] = sizeof(unsigned long long),
+    [TYPE_FLOAT]              = sizeof(float),
+    [TYPE_DOUBLE]             = sizeof(double),
+    [TYPE_LONG_DOUBLE]        = sizeof(long double),
+    [TYPE_BOOL]               = sizeof(bool),
+    [TYPE_POINTER]            = sizeof(void*),
+};
 
 // writing typedef here tells the comiler that DynArray is a struct, so we never have to write "struct" in front again
 /* if you try to define this with "struct DynArray" then it won't work (error) because there is not "tag" to this struct (no name after 
@@ -113,8 +137,9 @@ DynArray createDynArray(int size, ElementType elementType) {  // now we don't in
     }
 
 
+    // maybe change this to be cleaner later (try and allocate memory and then check first)
     DynArray arrData;
-    arrData.elemSize = elementSize; // save the size of each individual element
+    arrData.elemSize = typeSizes[elementType]; // save the size of each individual element
     arrData.elemType = elementType; // save the type of the element so that we can use for later
     void* temp; /* For error checking */
     temp = malloc(size * arrData.elemSize); /* allocate memory */
