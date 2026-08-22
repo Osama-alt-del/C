@@ -1,0 +1,134 @@
+So what's the difference between compiling and linking in C? and how do they work??
+
+compilation is the process of converting the source code of the C language into machine code. As C is a mid-level language, it needs a compiler to convert it into an executable code so that the program can be run on our machine.
+
+The C program goes through the following phases during compilation:
+
+
+To view all of the intermediate files,                                        +------------------------+
+we can run :                                                                  |      Source File       |
+``` gcc -Wall -save-temps <file.c> -o filename ```                            |                        |
+                                                                              +----------+-------------+
+If you do the above commands, you will see "filename.s","filename.o" etc                 |
+                                                                                         |
+Preprocessing: Removal of comments | Expansion of Macros | Expansion of       +----------v-------------+
+Included Files | Conditional compilation (skip certain parts if not needed)   |    Preprocessor        |
+                                                                              |                        |
+                                                                              +----------+-------------+
+                                                                                         |
+                                                                                         |Preprocessed file (.i file)
+Compilation: Producing assembly - level instructions.                         +----------v-------------+
+                                                                              |      Compiler          |
+                                                                              |                        |
+                                                                              +----------+-------------+
+                                                                                         |
+                                                                                         |Assembly code (.s file)
+Assembling: The filename.s is taken as input and turned into filename.o       +----------v-------------+
+by the assembler. This file contains machine-level instructions               |      Assembler         |
+                                                                              |                        |
+                                                                              +----------+-------------+
+                                                                                         |
+                                                                                         |Object code (.o file)
+                                                                              +----------v-------------+
+Linking: Linking of all function calls with their definitions. The linker     |      Linker            |
+knows where all of these functions are implemented. The linker also knows     |                        |
+where.                                                                        +----------+-------------+
+                                                                                         |
+There are 2 types of linking:                                                            v
+                                                                                  Executable binary
+Static Linking and Dynamic Linking.
+
+Static linking: All the code is copied to the single file and then executable file is created.
+
+Dynamic linking: Only the names of the shared libraries are added to the code and then it is referred during the execution. GCC does dynamic linking by default.
+
+
+writing -l<library name> is important because it tells the linker which libraries to link to.
+
+you don't need to link certain libraries because they are linked by default by gcc (gnu compiler collection (used to be called gnu c compiler, but now it's name changed because it also handles C++ and other languages)
+
+
+======================LINKING DEFINITIONS AND DECLARATIONS====================================
+Declaration: tells the compiler: "this function/variable exists somewhere, here's its type/ signature" = it doesn't allocate storage or generate code.
+    ex: int add(int a, int b);
+
+Definition: actually provides implementation (for functions) or allocates storage (for variables)
+    ex:|int add(int a, int b) { 
+       |    return a + b;
+       |}
+
+We usually split these into different files, because C compiles files independently, one translation unit at a time. When main.c calls add(), the compiler only needs to know the signature to generate correct calling code, it doesn't need the actual implementation.
+     - Compiler: only needs declarations
+     - Linker needs definitions (to know where the real codee/data lives)
+        
+This separation is what makes header files possible. You can #include "mylib.h". in 10 different .c files, let each compile independently against just the declarations, and only at the very end does the linker need the one real definition, so it's much better and faster.
+
+!!!!!WHY YOU SHOULDN'T PUT DEFINTIONS IN HEADER FILES!!!!!
+
+// add.h
+int add(int a, int b) { 
+    return a +b; /* simple adding function */
+}
+
+// file1.c
+#include "add.h" /* file1.c copmiles into file1.o with its own copy of add()'s machine code */
+
+// file2.c
+#include "add.h" /* file1.c copmiles into file1.o with its own copy of add()'s machine code */ 
+
+when the linker tries to combine file1.o and file2.o into one executable, it finds two symbols named add and it returns a duplicate / redefinition error.
+
+
+Another advantage of separating the definitions and the declarations is that if you use h files with definition, then every single .c file that includes it has to recompile all of that logic, every single build. This means that if you change the defintion, then every .c file that includes it has to recomopile all of that logic EVERY SINGLE BUILD.
+
+
+Another thing is that there is no encapsulation/information hiding. Try and find the implementations of the stdlib.h file. Can you find it? The header file only has declarations, macros and nothing else. No definitions. It tells the compiler the declarations, allowing it to create the .s files and then the .o files through the assembler. Then the linker will fetch the actual definitions of these functions. from the linked libraries.
+
+
+==========================================HOW TO INCLUDE=========================================
+// counter.h
+extern int count;
+void increment(void);
+
+
+// counter.c 
+#include "counter.h" // include the declaration to check if matches definition
+int count = 0;
+void increment(void) { count++ }; // definition
+
+// main.c 
+#include "counter.h" // only include the declaration (we will tell the linker where the definitions are)
+int main() { 
+    increment();
+    return count;
+}
+
+
+you can then compile with:
+
+gcc -c counter.c -o counter.o # compiles counter into obj file
+gcc -c main.c -o main.o # compiles main into obj file 
+
+gcc counter.o main.o -o program  #LINKS the object files together
+
+
+OR you can simply do:
+gcc main.c counter.c -o program.o 
+
+
+
+So basically we should be able to just compile our definitions once, get out obj file (counter.o, for example), and then we can change the main.c file and only have to compile that each time we make a change (much more efficient).
+
+
+
+
+                ===============FILE TYPES================
+
+.o = obj file (always statically linked (contents copied directly into the final executable)) (machine level instructions)
+
+.a = an archive of .o files (which are all statically linked)
+.so = shared/dynamic library. Linker just records "depend on this .so file for the definitions", which makes the final executable much smaller.
+
+
+
+

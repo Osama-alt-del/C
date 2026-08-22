@@ -138,7 +138,7 @@ void reallocateMemory(DynArray* arrData) {
 // need to make int value void * value and instead work with that, because we want it to be type -agnostic
 void appendArray(DynArray* arrData, void* value) {  
     if (arrData->length < arrData->capacity) { /* Check if we can add a value */
-        
+        // [REASON WE CONVERT TO CHAR*
         // know the data address that we want to add to: (must start with char*, so the compiler does not scale by some type size)
         void * dest = (char*) arrData->val + (arrData->elemSize * arrData->length); // figure out the "next address" we want to add to 
         memcpy(dest, value, arrData->elemSize); // copy the data from the input value into the next address in the array

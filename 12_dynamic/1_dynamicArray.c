@@ -6,6 +6,8 @@
 /* To Do 
     // write a documentation on how to use the header in the header file
     // add new file to include (MAKE SURE YOU TALK ABOUT HOW TO PROPERLY USE GET VAL
+    // make this a global header file you can use anywhere
+    // separate the definition from the declaration
 */
 
 int main() { 
