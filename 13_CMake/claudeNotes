@@ -1,0 +1,158 @@
+ CMAKE — THE GIST AND HOW TO USE IT
+====================================
+
+WHAT IS CMAKE?
+---------------
+CMake is NOT a compiler. It's a "build system generator."
+
+You write one set of instructions (a file called CMakeLists.txt), and CMake
+turns that into the actual build files for whatever tool you want to use:
+- Makefiles (for `make` on Linux/macOS)
+- Ninja build files
+- Visual Studio project files (Windows)
+- Xcode project files (macOS)
+
+Why this matters: your project stays portable. One CMakeLists.txt can build
+on Linux, Windows, and macOS without you rewriting anything.
+
+THE BASIC WORKFLOW
+--------------------
+1. Write a CMakeLists.txt in your project folder describing what to build.
+2. Run CMake to "configure" the project — this generates native build files
+   in a separate build directory (keeps your source folder clean).
+3. Run the actual build tool (or let CMake do it for you) to compile.
+
+Commands (from your project root):
+
+    mkdir build
+    cd build
+    cmake ..
+    cmake --build .
+
+Breaking that down:
+- `cmake ..` reads the CMakeLists.txt in the parent folder and generates
+  build files inside `build/`.
+- `cmake --build .` invokes the underlying build tool (make, ninja, MSBuild,
+  etc.) to actually compile — this way you don't need to remember the
+  tool-specific command.
+
+A MINIMAL CMakeLists.txt
+--------------------------
+    cmake_minimum_required(VERSION 3.10)
+    project(MyApp)
+
+    add_executable(MyApp main.cpp)
+
+That's genuinely enough for a simple one-file program.
+
+KEY CONCEPTS / COMMANDS YOU'LL ACTUALLY USE
+----------------------------------------------
+cmake_minimum_required(VERSION x.y)
+    Sets the minimum CMake version needed. Always put this first.
+
+project(Name)
+    Names your project, sets up default compiler detection.
+
+add_executable(target file1.cpp file2.cpp ...)
+    Declares that these source files compile into an executable called
+    "target".
+
+add_library(mylib file1.cpp file2.cpp)
+    Same idea, but builds a library (static by default) instead of an exe.
+
+target_link_libraries(target mylib)
+    Links "mylib" into "target". This is how you connect libraries to
+    executables (or other libraries).
+
+target_include_directories(target PUBLIC include/)
+    Tells the compiler where to find header files.
+
+set(VAR value)
+    Defines a variable, e.g. set(CMAKE_CXX_STANDARD 17)
+
+find_package(SomeLib REQUIRED)
+    Locates an already-installed library (like Boost, OpenCV, etc.) on the
+    system so you can link against it.
+
+add_subdirectory(some_folder)
+    Pulls in another folder that has its own CMakeLists.txt — used for
+    multi-folder / multi-module projects.
+
+PUBLIC vs PRIVATE vs INTERFACE (quick note)
+-----------------------------------------------
+When linking or including things, you'll see keywords like PUBLIC, PRIVATE,
+INTERFACE. They control who "inherits" that requirement:
+- PRIVATE: only this target uses it.
+- PUBLIC: this target uses it AND anything linking to this target inherits
+  it too.
+- INTERFACE: this target doesn't use it directly, but anything linking to
+  it does.
+
+Rule of thumb for beginners: start with PRIVATE unless you know consumers
+of your library also need that dependency.
+
+A SLIGHTLY BIGGER EXAMPLE
+----------------------------
+Project structure:
+
+    myproject/
+      CMakeLists.txt
+      main.cpp
+      mathlib/
+        add.cpp
+        add.h
+
+CMakeLists.txt:
+
+    cmake_minimum_required(VERSION 3.10)
+    project(MyProject)
+    set(CMAKE_CXX_STANDARD 17)
+
+    add_library(mathlib mathlib/add.cpp)
+    target_include_directories(mathlib PUBLIC mathlib)
+
+    add_executable(MyProject main.cpp)
+    target_link_libraries(MyProject PRIVATE mathlib)
+
+Build it the same way as before:
+
+    mkdir build && cd build
+    cmake ..
+    cmake --build .
+
+COMMON GOTCHAS
+----------------
+- Always build "out of source" (in a separate build/ folder). Building
+  directly in your source folder makes a mess and is hard to clean up.
+- If you change CMakeLists.txt, just re-run `cmake ..` (or `cmake --build .`
+  usually re-triggers configure automatically) — you don't need to delete
+  the build folder unless something's badly broken, in which case wiping
+  build/ and starting over is the standard fix.
+- CMake versions matter: features get added over time, so an old
+  cmake_minimum_required can block you from using newer syntax.
+- On Windows with Visual Studio, `cmake ..` generates a .sln file you can
+  open directly, or you can still use `cmake --build .`.
+
+GOOD SOURCES TO GO DEEPER
+----------------------------
+1. Official CMake documentation
+   https://cmake.org/cmake/help/latest/
+
+2. Official beginner tutorial (step-by-step, from Kitware, the makers of
+   CMake)
+   https://cmake.org/cmake/help/latest/guide/tutorial/index.html
+
+3. "An Introduction to Modern CMake" — a widely recommended community guide
+   focused on current best practices (targets, PUBLIC/PRIVATE, etc.)
+   https://cliutils.gitlab.io/modern-cmake/
+
+4. CMake GitHub repository (source, issue tracker, release notes)
+   https://github.com/Kitware/CMake
+
+TL;DR
+-------
+CMake reads CMakeLists.txt, generates native build files for your platform,
+you build with `cmake --build .`. Use add_executable / add_library for
+targets, target_link_libraries to connect them, and target_include_directories
+for headers. Keep builds out-of-source. Start simple, add complexity as
+your project grows.

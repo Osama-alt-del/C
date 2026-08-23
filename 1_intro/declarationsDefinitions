@@ -1,0 +1,32 @@
+This is a note file explaning why we should separate declarations and definitions.
+
+ Why We Split Declarations (.h) and Definitions (.c)
+=====================================================
+
+1. Sharing across files
+   Multiple .c files can #include the same .h to use a function,
+   without each needing (or being allowed) to redefine it. The
+   header is the "contract"; only one .c file actually implements it.
+
+2. Faster compilation
+   Each .c file compiles independently into a .o file. If you only
+   change the implementation in function.c, only that file needs
+   recompiling -- not everything that uses it. Change the header
+   (the interface), though, and everything that includes it does
+   need a rebuild.
+
+3. Encapsulation / hiding implementation details
+   Other files only see what's in the header (the "what"), not the
+   actual logic (the "how") in the .c file. This keeps internal
+   details private and the public interface clean.
+
+4. Avoiding "multiple definition" linker errors
+   If you put full function definitions in a header and included
+   that header in multiple .c files, you'd get duplicate symbol
+   errors at link time. Declarations are safe to include everywhere;
+   definitions are not.
+
+In short: headers = "here's what exists and how to use it,"
+source files = "here's how it actually works." It's a separation
+between interface and implementation.
+

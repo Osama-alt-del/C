@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> // for memcpy
+#include <stdbool.h>
 
 
 // enum will automatically assign integers to these values (enumerate them), so TYPE_CHAR will basically be == to 0, TYPE_INT will be == 1 etc
@@ -262,9 +263,6 @@ void printArray(DynArray* arrData) {
     for ( int i = 0; i < arrData->length; i++) { 
         printer(arrData->elemType, getElement(arrData, i)); // this might be really slow
     }
-    printf("\n");
-    
-    
 }
 
 

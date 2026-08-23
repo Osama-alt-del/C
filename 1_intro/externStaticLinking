@@ -1,7 +1,7 @@
 This is about extern and static and how they tie into linking.
 
 static has 2 meanings: 
-    1. restricts visibility to one file only. (protected)
+    1. restricts visibility to one file only. (private)
     When applied to a global variable or function, the static gives it internal linkage. It can only be seen and used within the .c file it's defined in, No other file can reference it, even if they try to extern it.
     in other words, we can basically use encapsulation between files. We can make certain data private to one file and not allow it to change in others.
 
@@ -12,5 +12,8 @@ extern:
      Makes a value visible across files "this variable exists somewhere, find it later"
 
      Memory is not allocated for when you use extern, you are just telling the file to use something in another translation unit.
+
+
+
 
 

@@ -1,0 +1,46 @@
+        =======================CMAKE NOTES=========================
+  Cmake is a build system generator
+
+You write a set of instructions in a file called CMakeLists.txt. CMake turns that into the actual build files for whatever tool you want to use. 
+
+Build files are files like MakeFile - automation tools that allow us to actually compile and build executable programs from source code. There are different kinds of build tools other than make (MakeFile) like "ninja"). By using CMake, we can easily change the make files. 
+
+This is important because it makes things very portable. CMakeLists.txt can build on Linux, Windows, and maxOs without rewriting anything.
+
+so you can do : 
+ - mkdir build
+ - cd build
+ - cmake ..
+ - cmake --build
+
+- make the build directory, head into it, and then build the parent directory.
+
+- cmake --build will invoke the underlying build tool to actually copmile - this way you don't need to remember to tool-specific command.
+
+EXAMPLE CMAKE (SIMPLE)
+---------------------------------------
+cmake_minimum_required(VERSION 3.10)
+project(ProjectName)
+
+add_executable(ProjectName main.c)
+
+---------------------------------------
+
+
+NORMAL PROJECT STRUCTURE:
+--------------------------------------
+    myproject/
+      CMakeLists.txt
+      main.cpp
+      mathlib/
+        add.cpp
+        add.h
+
+
+
+
+
+
+
+
+

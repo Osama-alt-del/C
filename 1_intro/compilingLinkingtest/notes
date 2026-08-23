@@ -1,0 +1,23 @@
+If you try:
+
+gcc main.c function.c -o prog
+
+by itself it won't work, because the "<>" type include is trying to find the function in the compilers configured include search paths, so you might have to add the current paths using "-I."
+
+you can check the current directory with "". if you use "" you will not need to include the "-I."
+
+when you use CMake it will add include directories (let's say you have an Inc dir, then if you write):
+
+        include_directories(Inc)
+
+It will add that directory to the search paths. (-IInc)
+
+So you can use <> includes in Cmake just fine, but the problem is that this defies the convention.
+
+usually "" means "own project files" and <> means "external/system library files"
+
+so it's usually better not to break this convention
+
+
+
+
