@@ -1,0 +1,46 @@
+This is a library where I will create some libraries (archives).
+
+
+
+I will try to learn how to make 1. static libraries and 2 dynamic libraries
+
+
+static library = .a file.
+
+dynamic library = .so file.
+
+I will do this with my type-agnostic dynamic array and my linked list code for now.
+
+
+so I will:
+
+1. Split the "bad code" into definitions and declarations. (DONE)
+
+2. I will create a compiled binary library using the .o files (do .a and then .so)
+
+3. I will then put the .so files in the normal include folder so that I can use them wherever
+
+Command for static:
+    ar rcs libmylib.a <obj files>
+
+    r = insert with replacement 
+    c = tell the program that we expect to create an archive (to avoid errors)
+    s = Write an object-file index into the archive, or update the existing one s is equivalent to running ranlib.
+
+    p = print members of the archive.
+
+    (q = insert (append))        | 
+
+
+command for dynamic:
+    gcc -shared -fPIC -o libmylib.so <obj files>
+        
+    gcc = compiler
+    
+    -shared : produce shared object which can then be linked. with other objects to form an executable (dynamic linking). Not all system support this options. For predictable results, you must also specify the same set of optioons  used for copilations (-fpic, -fPIC, or model suboptions), when you specify this linker option.
+
+    -fPIC   : if supported for the target machine, emit position-independent code, suitable for dynamic linking and avoiding any limit on the size of the global offset table, this option makes a difference on AArch64, m68k, PowerPC and SPARC. 
+
+    -o      : the output file name
+
+(make sure you learn what the commands do)

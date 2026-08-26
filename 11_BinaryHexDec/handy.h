@@ -1,4 +1,6 @@
-// Collection of all of the functions
+#include <math.h>
+#include <stdio.h>
+#include <stdint.h>
 
 // Integer to Binary
 int intToBin(int num) {

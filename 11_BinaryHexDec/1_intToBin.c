@@ -18,7 +18,7 @@ int intToBin(int num) {
     int bin = 0;
     int count = 0; // This is the amount of digits.
 
-    // I need to review how to find a binary number
+    // find the binary of the num
     while (num >= 1) { 
         bin += (num%2) * pow(10, count); 
         num/=2;

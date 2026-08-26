@@ -30,3 +30,8 @@ In short: headers = "here's what exists and how to use it,"
 source files = "here's how it actually works." It's a separation
 between interface and implementation.
 
+
+so remember, the declaration is brought in with the header file so that when nothing is linked, the source file knows "this function's definition will exist soon" and then we will link it through the linker (adding the .o file) (see compiling and linking)
+
+ 
+

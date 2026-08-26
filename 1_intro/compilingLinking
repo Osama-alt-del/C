@@ -106,6 +106,7 @@ int main() {
 
 you can then compile with:
 
+"-c = compile (without linking) | as in give me the obj file"
 gcc -c counter.c -o counter.o # compiles counter into obj file
 gcc -c main.c -o main.o # compiles main into obj file 
 
@@ -127,7 +128,7 @@ So basically we should be able to just compile our definitions once, get out obj
 .o = obj file (always statically linked (contents copied directly into the final executable)) (machine level instructions)
 
 .a = an archive of .o files (which are all statically linked)
-.so = shared/dynamic library. Linker just records "depend on this .so file for the definitions", which makes the final executable much smaller.
+.so =  (shared object file) shared/dynamic library. Linker just records "depend on this .so file for the definitions", which makes the final executable much smaller.
 
 
 

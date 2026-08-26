@@ -1,4 +1,4 @@
-If you try:
+you try:
 
 gcc main.c function.c -o prog
 
@@ -10,13 +10,15 @@ when you use CMake it will add include directories (let's say you have an Inc di
 
         include_directories(Inc)
 
-It will add that directory to the search paths. (-IInc)
+It will add that directory to the search paths. (-IInc) (keep in mind that your lsp(?) (like clangd and stuff)  will not pick up on this)
 
 So you can use <> includes in Cmake just fine, but the problem is that this defies the convention.
 
 usually "" means "own project files" and <> means "external/system library files"
 
 so it's usually better not to break this convention
+
+
 
 
 
