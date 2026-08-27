@@ -26,6 +26,18 @@ void levels(LEVEL* level) {
     }
 }
 
+// Can use this in tandem with levels() function 
+LEVEL levelSelect() { 
+    int input;
+    printf("ENTER LEVEL (1 - 5)\n"); 
+    scanf("%d", &input);
+
+    // return the level (-1 because enum)
+    LEVEL level = input-1;
+
+    return level;
+}
+
 void level1() {
     bool run = true;
     while (run) {

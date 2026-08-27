@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "game.h"
 
+#include "menu.h"
+
 // this should return a gamestate type so that "game" knows what to do next
 void mainMenu(GAMESTATE* gameState){ // we are going to change the game state in the functions that we call
 
