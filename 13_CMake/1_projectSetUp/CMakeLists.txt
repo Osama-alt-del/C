@@ -1,6 +1,5 @@
 # This file will make a Makefile. go into build, run cmake ..   when you run cmake --build in the build directory, it will make the build file compile the project.
 
-
 # This is mean to tell clangd know the compimler's configuration
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 

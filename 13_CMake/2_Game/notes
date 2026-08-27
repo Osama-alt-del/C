@@ -1,0 +1,22 @@
+This is a simple game:
+
+It will be a command line game. 
+
+It will involve some object oriented programming in C.
+
+Learning "OOP" in C while also learning how to use CMake will help me a lot in writing software in the future, so I 
+will learn it.
+
+After I finish the command line game, I will make it work with SDL (and use cmake)
+
+I want an enumerator to track the levels. 
+
+- probably put this in a levels.h header file
+
+
+
+
+
+
+
+
