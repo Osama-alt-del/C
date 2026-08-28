@@ -1,3 +1,0 @@
-/home/spaidory/Programming/C/13_CMake/2_Game/build/CMakeFiles/2_Game.dir
-/home/spaidory/Programming/C/13_CMake/2_Game/build/CMakeFiles/edit_cache.dir
-/home/spaidory/Programming/C/13_CMake/2_Game/build/CMakeFiles/rebuild_cache.dir

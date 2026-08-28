@@ -1,7 +1,17 @@
 ToDo:
 
+-MAKE 0 THE BACK NUMBER (make QUIT state 0 so that it's easier for users instead of remembering bullcrap.) 
+    Change it for the main menu
+
+already doing, but for reference:
  - make it so that the level and the gamestate values are changed within the stack frames (functions that are called) (call by reference)
+
  - have enums in type.h for all of the pages (settings and stuff) and make it so that we can check selection using those.
+ - Need to also give game tracker a "character choice" and a "settings" values that I can edit with settingsSelect() (which I will make)
+ - Need to make it so that gameTracker data is saved in a json or some other file that can be read at start up
+ - Need to start making the levels
+
+ - Make it so that the inputs are sanitized and that if you enter something wrong, the screen will clear and tell you to enter a number
 
 
 

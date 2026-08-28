@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "types.h"
 #include "levels.h"
@@ -8,6 +9,7 @@
 
 // while loops should be in the levels
 void playLevels(GameTracker* gT) { 
+    system("clear");
     switch (gT->levelNow) {
         case LEVEL1:
             level1();

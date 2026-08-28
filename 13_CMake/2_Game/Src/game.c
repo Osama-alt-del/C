@@ -1,6 +1,7 @@
 // This is where the actual game is
 #include <stdbool.h>
-#include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h> // for debugging
 
 #include "game.h"
 #include "menu.h"
@@ -29,15 +30,15 @@ void game(GameTracker* gT) {  // we check the current level we wanna start at
                 
                 break;
             case STATE_CHARACTER_SCREEN: 
-                printf("CHARACTER_SCREEN PAGE\n");
+                characterSelectScreen(gT);
                 
                 break;
             case STATE_SETTINGS: 
-                printf("STATE_SETTINGS PAGE\n");
+                settingsScreen(gT);
                 
                 break;
             case STATE_GITHUB: 
-                printf("GITHUB PAGE\n");
+                githubScreen(gT);
                 
                 break;
             case STATE_QUIT: 
