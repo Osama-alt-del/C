@@ -15,13 +15,13 @@ typedef enum {
 
 // Game types
 typedef enum {
-    STATE_MENU,
+    STATE_QUIT,
     STATE_PLAY,
     STATE_LEVEL_SELECT,
     STATE_CHARACTER_SCREEN,
     STATE_SETTINGS,
     STATE_GITHUB,
-    STATE_QUIT,
+    STATE_MENU, // this being state 1 makes me have to write a lot again
 } GAMESTATE;
 
 // in Headers, we don't want to allocate memory using "var name" so we will just give it a tag name

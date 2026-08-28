@@ -18,7 +18,7 @@ void clearStdin() {
 void mainMenu(GameTracker* gT){ 
     int input = -1; // make it something invalid for now 
         
-    int lowerB = 1;
+    int lowerB = 0;
     int higherB = 6;
     bool invalidInput = false; // at the start it's false
 
@@ -29,13 +29,13 @@ void mainMenu(GameTracker* gT){
         printf("|=====================|\n");
         printf("  WELCOME TO THE GAME\n");
         printf("========================\n");
-        // printf("0: Menu\n");
         printf("1: Play LV%d\n", gT->levelNow+1); // start from lv1 (or saved level)
         printf("2: Level Select\n");
         printf("3: Character Screen\n");
         printf("4: Settings\n");
-        printf("5: Github\n");
-        printf("6: QUIT\n");
+        printf("5: Github & Credits\n");
+        printf("\n");
+        printf("0: QUIT\n");
 
         if (invalidInput) { 
             printf("===============\n");
