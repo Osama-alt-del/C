@@ -1,6 +1,8 @@
 ToDo:
 
- - Make it sot hat there is a "Game" struct which will track the current level and the current state of the game
- - Based on the values held by that game struct, we will know what to do.
- - have a switch statement in the main game loop (game() in game.c)
- - amke it so that the level and the gamestate values are changed within the stack frames (functions that are called) (call by reference)
+ - make it so that the level and the gamestate values are changed within the stack frames (functions that are called) (call by reference)
+ - have enums in type.h for all of the pages (settings and stuff) and make it so that we can check selection using those.
+
+
+
+ - Save the current level and all of the data in a .json file.

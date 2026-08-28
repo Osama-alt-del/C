@@ -2,12 +2,11 @@
 #define MENU_H
 
 // this is our meny header file (declarations)
-#include "game.h"
-#include "levels.h"
+#include "types.h"
 
-void mainMenu(GAMESTATE* gameState); 
+void mainMenu(GameTracker* gT); 
 
 
-void levelSelectScreen(LEVEL* level);
+void levelSelectScreen(GameTracker* gT);
 
 #endif

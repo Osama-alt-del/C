@@ -83,17 +83,65 @@ CMakeFiles/2_Game.dir/Src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/2_Game.dir/Src/main.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/spaidory/Programming/C/13_CMake/2_Game/Src/main.c -o CMakeFiles/2_Game.dir/Src/main.c.s
 
+CMakeFiles/2_Game.dir/Src/levels.c.o: CMakeFiles/2_Game.dir/flags.make
+CMakeFiles/2_Game.dir/Src/levels.c.o: /home/spaidory/Programming/C/13_CMake/2_Game/Src/levels.c
+CMakeFiles/2_Game.dir/Src/levels.c.o: CMakeFiles/2_Game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/spaidory/Programming/C/13_CMake/2_Game/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/2_Game.dir/Src/levels.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/2_Game.dir/Src/levels.c.o -MF CMakeFiles/2_Game.dir/Src/levels.c.o.d -o CMakeFiles/2_Game.dir/Src/levels.c.o -c /home/spaidory/Programming/C/13_CMake/2_Game/Src/levels.c
+
+CMakeFiles/2_Game.dir/Src/levels.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/2_Game.dir/Src/levels.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/spaidory/Programming/C/13_CMake/2_Game/Src/levels.c > CMakeFiles/2_Game.dir/Src/levels.c.i
+
+CMakeFiles/2_Game.dir/Src/levels.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/2_Game.dir/Src/levels.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/spaidory/Programming/C/13_CMake/2_Game/Src/levels.c -o CMakeFiles/2_Game.dir/Src/levels.c.s
+
+CMakeFiles/2_Game.dir/Src/menu.c.o: CMakeFiles/2_Game.dir/flags.make
+CMakeFiles/2_Game.dir/Src/menu.c.o: /home/spaidory/Programming/C/13_CMake/2_Game/Src/menu.c
+CMakeFiles/2_Game.dir/Src/menu.c.o: CMakeFiles/2_Game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/spaidory/Programming/C/13_CMake/2_Game/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/2_Game.dir/Src/menu.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/2_Game.dir/Src/menu.c.o -MF CMakeFiles/2_Game.dir/Src/menu.c.o.d -o CMakeFiles/2_Game.dir/Src/menu.c.o -c /home/spaidory/Programming/C/13_CMake/2_Game/Src/menu.c
+
+CMakeFiles/2_Game.dir/Src/menu.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/2_Game.dir/Src/menu.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/spaidory/Programming/C/13_CMake/2_Game/Src/menu.c > CMakeFiles/2_Game.dir/Src/menu.c.i
+
+CMakeFiles/2_Game.dir/Src/menu.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/2_Game.dir/Src/menu.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/spaidory/Programming/C/13_CMake/2_Game/Src/menu.c -o CMakeFiles/2_Game.dir/Src/menu.c.s
+
+CMakeFiles/2_Game.dir/Src/game.c.o: CMakeFiles/2_Game.dir/flags.make
+CMakeFiles/2_Game.dir/Src/game.c.o: /home/spaidory/Programming/C/13_CMake/2_Game/Src/game.c
+CMakeFiles/2_Game.dir/Src/game.c.o: CMakeFiles/2_Game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/spaidory/Programming/C/13_CMake/2_Game/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/2_Game.dir/Src/game.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/2_Game.dir/Src/game.c.o -MF CMakeFiles/2_Game.dir/Src/game.c.o.d -o CMakeFiles/2_Game.dir/Src/game.c.o -c /home/spaidory/Programming/C/13_CMake/2_Game/Src/game.c
+
+CMakeFiles/2_Game.dir/Src/game.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/2_Game.dir/Src/game.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/spaidory/Programming/C/13_CMake/2_Game/Src/game.c > CMakeFiles/2_Game.dir/Src/game.c.i
+
+CMakeFiles/2_Game.dir/Src/game.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/2_Game.dir/Src/game.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/spaidory/Programming/C/13_CMake/2_Game/Src/game.c -o CMakeFiles/2_Game.dir/Src/game.c.s
+
 # Object files for target 2_Game
 2_Game_OBJECTS = \
-"CMakeFiles/2_Game.dir/Src/main.c.o"
+"CMakeFiles/2_Game.dir/Src/main.c.o" \
+"CMakeFiles/2_Game.dir/Src/levels.c.o" \
+"CMakeFiles/2_Game.dir/Src/menu.c.o" \
+"CMakeFiles/2_Game.dir/Src/game.c.o"
 
 # External object files for target 2_Game
 2_Game_EXTERNAL_OBJECTS =
 
 2_Game: CMakeFiles/2_Game.dir/Src/main.c.o
+2_Game: CMakeFiles/2_Game.dir/Src/levels.c.o
+2_Game: CMakeFiles/2_Game.dir/Src/menu.c.o
+2_Game: CMakeFiles/2_Game.dir/Src/game.c.o
 2_Game: CMakeFiles/2_Game.dir/build.make
 2_Game: CMakeFiles/2_Game.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/spaidory/Programming/C/13_CMake/2_Game/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable 2_Game"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/spaidory/Programming/C/13_CMake/2_Game/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable 2_Game"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/2_Game.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

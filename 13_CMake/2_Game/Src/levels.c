@@ -1,12 +1,14 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#include "types.h"
 #include "levels.h"
 
+// if you are looking for levelSelectScreen, it's in menu
 
 // while loops should be in the levels
-void levels(LEVEL* level) { 
-    switch (*level) {
+void playLevels(GameTracker* gT) { 
+    switch (gT->levelNow) {
         case LEVEL1:
             level1();
             break;
@@ -26,17 +28,6 @@ void levels(LEVEL* level) {
     }
 }
 
-// Can use this in tandem with levels() function 
-LEVEL levelSelect() { 
-    int input;
-    printf("ENTER LEVEL (1 - 5)\n"); 
-    scanf("%d", &input);
-
-    // return the level (-1 because enum)
-    LEVEL level = input-1;
-
-    return level;
-}
 
 void level1() {
     bool run = true;

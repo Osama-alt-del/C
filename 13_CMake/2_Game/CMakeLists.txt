@@ -8,6 +8,10 @@ project(2_Game)
 # These are all of our executables
 add_executable(${PROJECT_NAME} 
     Src/main.c
+    Src/levels.c
+    Src/menu.c
+    Src/game.c
+    
 )
 
 include_directories(Inc)

@@ -1,18 +1,11 @@
 #ifndef LEVELS_H
 #define LEVELS_H
 // This is a file for the enumerator for the levels
+#include "types.h"
 
-typedef enum { 
-    LEVEL1, // 0 - 5
-    LEVEL2,
-    LEVEL3,
-    LEVEL4,
-    LEVEL5,
-} LEVEL;
 
 // LEVEL is an alias that represents the enum with all of the levels.
-
-void levels(LEVEL* level);
+void playLevels(GameTracker * gT);
 
 // here are our actual level values
 void level1();

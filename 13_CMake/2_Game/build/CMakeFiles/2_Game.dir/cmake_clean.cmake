@@ -1,8 +1,14 @@
 file(REMOVE_RECURSE
   "2_Game"
   "2_Game.pdb"
+  "CMakeFiles/2_Game.dir/Src/game.c.o"
+  "CMakeFiles/2_Game.dir/Src/game.c.o.d"
+  "CMakeFiles/2_Game.dir/Src/levels.c.o"
+  "CMakeFiles/2_Game.dir/Src/levels.c.o.d"
   "CMakeFiles/2_Game.dir/Src/main.c.o"
   "CMakeFiles/2_Game.dir/Src/main.c.o.d"
+  "CMakeFiles/2_Game.dir/Src/menu.c.o"
+  "CMakeFiles/2_Game.dir/Src/menu.c.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

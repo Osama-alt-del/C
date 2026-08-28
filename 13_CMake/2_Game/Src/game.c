@@ -5,29 +5,27 @@
 #include "game.h"
 #include "menu.h"
 #include "levels.h"
+#include "types.h"
 
 // this is the game loop:
-void game(LEVEL* level) {  // we check the current level we wanna start at
+void game(GameTracker* gT) {  // we check the current level we wanna start at
     // have a title select screen here first
-    GAMESTATE gameState;  // need to save this in a struct gameState = STATE_MENU;
+    // printf("%d\n", gT->stateNow);
     
-    bool run;
+    bool run = true;
     // constantly check the game state
     while (run) { 
         // this is the switch statement for the game states
-        switch (gameState) {
+        switch (gT->stateNow) {
             case STATE_MENU: 
-                mainMenu(&gameState);
+                mainMenu(gT);
                 
                 break;
             case STATE_PLAY:
-                levels(level); // the level of the GAME structure will change
-
+                playLevels(gT); // run the levels based on current level
                 break;
             case STATE_LEVEL_SELECT: 
-                LEVEL inputLevel;
-                inputLevel = levelSelect(); 
-                levels(&inputLevel); 
+                levelSelectScreen(gT);
                 
                 break;
             case STATE_CHARACTER_SCREEN: 
@@ -41,6 +39,12 @@ void game(LEVEL* level) {  // we check the current level we wanna start at
             case STATE_GITHUB: 
                 printf("GITHUB PAGE\n");
                 
+                break;
+            case STATE_QUIT: 
+                run = false; // quit the game
+                break;
+
+            default:
                 break;
         }
     }

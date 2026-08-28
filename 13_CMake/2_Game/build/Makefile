@@ -129,6 +129,54 @@ depend:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/build
 .PHONY : 2_Game/fast
 
+Src/game.o: Src/game.c.o
+.PHONY : Src/game.o
+
+# target to build an object file
+Src/game.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/Src/game.c.o
+.PHONY : Src/game.c.o
+
+Src/game.i: Src/game.c.i
+.PHONY : Src/game.i
+
+# target to preprocess a source file
+Src/game.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/Src/game.c.i
+.PHONY : Src/game.c.i
+
+Src/game.s: Src/game.c.s
+.PHONY : Src/game.s
+
+# target to generate assembly for a file
+Src/game.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/Src/game.c.s
+.PHONY : Src/game.c.s
+
+Src/levels.o: Src/levels.c.o
+.PHONY : Src/levels.o
+
+# target to build an object file
+Src/levels.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/Src/levels.c.o
+.PHONY : Src/levels.c.o
+
+Src/levels.i: Src/levels.c.i
+.PHONY : Src/levels.i
+
+# target to preprocess a source file
+Src/levels.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/Src/levels.c.i
+.PHONY : Src/levels.c.i
+
+Src/levels.s: Src/levels.c.s
+.PHONY : Src/levels.s
+
+# target to generate assembly for a file
+Src/levels.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/Src/levels.c.s
+.PHONY : Src/levels.c.s
+
 Src/main.o: Src/main.c.o
 .PHONY : Src/main.o
 
@@ -153,6 +201,30 @@ Src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/Src/main.c.s
 .PHONY : Src/main.c.s
 
+Src/menu.o: Src/menu.c.o
+.PHONY : Src/menu.o
+
+# target to build an object file
+Src/menu.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/Src/menu.c.o
+.PHONY : Src/menu.c.o
+
+Src/menu.i: Src/menu.c.i
+.PHONY : Src/menu.i
+
+# target to preprocess a source file
+Src/menu.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/Src/menu.c.i
+.PHONY : Src/menu.c.i
+
+Src/menu.s: Src/menu.c.s
+.PHONY : Src/menu.s
+
+# target to generate assembly for a file
+Src/menu.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2_Game.dir/build.make CMakeFiles/2_Game.dir/Src/menu.c.s
+.PHONY : Src/menu.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +234,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... 2_Game"
+	@echo "... Src/game.o"
+	@echo "... Src/game.i"
+	@echo "... Src/game.s"
+	@echo "... Src/levels.o"
+	@echo "... Src/levels.i"
+	@echo "... Src/levels.s"
 	@echo "... Src/main.o"
 	@echo "... Src/main.i"
 	@echo "... Src/main.s"
+	@echo "... Src/menu.o"
+	@echo "... Src/menu.i"
+	@echo "... Src/menu.s"
 .PHONY : help
 
 

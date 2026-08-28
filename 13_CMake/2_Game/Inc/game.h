@@ -1,17 +1,15 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "levels.h"
+#include "types.h"
+
+// to fix the mutual inclusion problem, I will put all types in a types.h file
+
 
 // game loop declaration
-void game(LEVEL* level);
+// call by reference to game tracker
+void game(GameTracker* gT); 
 
-typedef enum {
-    STATE_MENU,
-    STATE_LEVEL_SELECT,
-    STATE_CHARACTER_SCREEN,
-    STATE_SETTINGS,
-    STATE_GITHUB,
-} GAMESTATE;
+
 
 #endif
